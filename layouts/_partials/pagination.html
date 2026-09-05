@@ -18,11 +18,11 @@
         {{- /* Previous page button */ -}}
         <a
             class="page-link {{ if not $pag.Prev }}disabled{{ end }}"
-            {{- if $pag.Prev -}}
+            {{ if $pag.Prev }}
                 href="{{ $pag.Prev.URL }}"
                 aria-label="Previous page"
-            {{- end -}}
-            {{- if not $pag.Prev -}}aria-disabled="true"{{- end -}}>
+            {{ end }}
+            {{ if not $pag.Prev }}aria-disabled="true"{{ end }}>
             {{ partial "helper/icon" "chevron-left" }}
         </a>
 
@@ -52,61 +52,61 @@
         <a
             class="page-link {{ if eq $curr 1 }}current{{ end }}"
             aria-label="Page 1"
-            {{- if eq $curr 1 -}}aria-current="page"{{- end -}}
-            {{- if ne $curr 1 -}}href="{{ $pag.First.URL }}"{{- end -}}>
+            {{ if eq $curr 1 }}aria-current="page"{{ end }}
+            {{ if ne $curr 1 }}href="{{ $pag.First.URL }}"{{ end }}>
             1
         </a>
 
         {{- /* Left ellipsis - show if the window start is beyond page 2 */ -}}
-        {{- if gt $start $middleMinPage -}}
+        {{ if gt $start $middleMinPage }}
             <button
                 type="button"
                 class="page-link pagination-link pagination-jump-trigger"
                 aria-label="{{ i18n "pagination.jumpToPage" | default "Jump to page" }}">
                 {{ partial "helper/icon" "dots" }}
             </button>
-        {{- end -}}
+        {{ end }}
 
         {{- /* Middle pages - show pages in [start, end] */ -}}
-        {{- range $pag.Pagers -}}
+        {{ range $pag.Pagers }}
             {{- if and (ge .PageNumber $start) (le .PageNumber $end) -}}
                 {{- $hideOnMobile := and (ne .PageNumber $curr) (ne .PageNumber (sub $curr 1)) (ne .PageNumber (add $curr 1)) -}}
                 <a
                     class="page-link {{ if eq .PageNumber $curr }}current{{ end }} {{ if $hideOnMobile }}hide-on-mobile{{ end }}"
-                    {{- if eq .PageNumber $curr -}}aria-current="page"{{- end -}}
+                    {{ if eq .PageNumber $curr }}aria-current="page"{{ end }}
                     href="{{ .URL }}"
                     aria-label="Page {{ .PageNumber }}">
                     {{ .PageNumber }}
                 </a>
             {{- end -}}
-        {{- end -}}
+        {{ end }}
 
         {{- /* Right ellipsis - show if the window end is before the second-to-last page */ -}}
-        {{- if lt $end $middleMaxPage -}}
+        {{ if lt $end $middleMaxPage }}
             <button
                 type="button"
                 class="page-link pagination-link pagination-jump-trigger"
                 aria-label="{{ i18n "pagination.jumpToPage" | default "Jump to page" }}">
                 {{ partial "helper/icon" "dots" }}
             </button>
-        {{- end -}}
+        {{ end }}
 
         {{- /* Last page */ -}}
         <a
             class="page-link {{ if eq $curr $total }}current{{ end }}"
-            {{- if ne $curr $total -}}href="{{ $pag.Last.URL }}"{{- end -}}
+            {{ if ne $curr $total }}href="{{ $pag.Last.URL }}"{{ end }}
             aria-label="Page {{ $total }}"
-            {{- if eq $curr $total -}}aria-current="page"{{- end -}}>
+            {{ if eq $curr $total }}aria-current="page"{{ end }}>
             {{ $total }}
         </a>
 
         {{- /* Next page button */ -}}
         <a
             class="page-link {{ if not $pag.Next }}disabled{{ end }}"
-            {{- if $pag.Next -}}
+            {{ if $pag.Next }}
                 href="{{ $pag.Next.URL }}"
                 aria-label="Next page"
-            {{- end -}}
+            {{ end }}
             {{- if not $pag.Next -}}aria-disabled="true"{{- end -}}>
             {{ partial "helper/icon" "chevron-right" }}
         </a>
